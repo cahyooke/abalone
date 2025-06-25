@@ -1,10 +1,21 @@
 import streamlit as st
 import numpy as np
-import joblib
+from sklearn.tree import DecisionTreeRegressor
+from ucimlrepo import fetch_ucirepo
 
-model = joblib.load("decision_tree_model.pkl")
+# Load dataset dari UCI
+abalone = fetch_ucirepo(id=1)
+X = abalone.data.features
+y = abalone.data.targets
 
-st.title("Prediksi Umur Abalone (Decision Tree)")
+# Konversi kategori ke angka
+X['Sex'] = X['Sex'].map({'M': 0, 'F': 1, 'I': 2})
+
+# Latih model langsung
+model = DecisionTreeRegressor()
+model.fit(X, y)
+
+st.title("Prediksi Umur Abalone")
 st.markdown("Masukkan fitur-fitur abalone:")
 
 sex = st.selectbox("Sex", options=["M", "F", "I"])
@@ -23,4 +34,4 @@ if st.button("Prediksi"):
     x = np.array([[sex_num, length, diameter, height,
                    whole_weight, shucked_weight, viscera_weight, shell_weight]])
     pred = model.predict(x)[0]
-    st.success(f"Perkiraan jumlah cincin (umur): {pred:.2f}")
+    st.success(f"Perkiraan umur abalone (jumlah cincin): {pred:.2f}")
