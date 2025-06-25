@@ -8,6 +8,10 @@ st.title("Prediksi Umur Abalone (Decision Tree)")
 st.markdown("Masukkan fitur-fitur abalone:")
 
 sex = st.selectbox("Sex", options=["M", "F", "I"])
+
+sex_map = {"M": 0, "F": 1, "I": 2}
+sex_num = sex_map[sex]
+
 length = st.number_input("Length")
 diameter = st.number_input("Diameter")
 height = st.number_input("Height")
