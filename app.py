@@ -34,4 +34,7 @@ if st.button("Prediksi"):
     x = np.array([[sex_num, length, diameter, height,
                    whole_weight, shucked_weight, viscera_weight, shell_weight]])
     pred = model.predict(x)[0]
-    st.success(f"Perkiraan umur abalone (jumlah cincin): {pred:.2f}")
+    umur = pred + 1.5
+
+    st.success(f"Perkiraan jumlah cincin abalone: {pred:.2f}")
+    st.info(f"Perkiraan umur abalone: {umur:.2f} tahun")
