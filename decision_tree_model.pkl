@@ -1,0 +1,22 @@
+from ucimlrepo import fetch_ucirepo
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+import joblib
+
+abalone = fetch_ucirepo(id=1)
+X = abalone.data.features
+y = abalone.data.targets
+
+# Konversi fitur 'Sex' ke numerik
+X = X.copy()
+X['Sex'] = X['Sex'].map({'M': 0, 'F': 1, 'I': 2})
+
+# Train/test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train model
+model = DecisionTreeRegressor()
+model.fit(X_train, y_train)
+
+# Simpan model
+joblib.dump(model, "decision_tree_model.pkl")
