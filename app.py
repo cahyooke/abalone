@@ -37,6 +37,39 @@ if st.button("Prediksi (Manual)"):
     umur = pred + 1.5
     st.success(f"Perkiraan jumlah cincin: {pred:.2f}")
     st.info(f"Perkiraan umur abalone: {umur:.2f} tahun")
+# Penjelasan Format CSV
+st.markdown("### 📄 Format CSV yang Diperlukan")
+st.markdown("""
+Pastikan file CSV kamu punya kolom ini:
+- `Sex` (M, F, atau I)
+- `Length`
+- `Diameter`
+- `Height`
+- `Whole weight`
+- `Shucked weight`
+- `Viscera weight`
+- `Shell weight`
+
+Contoh baris:
+M,0.455,0.365,0.095,0.514,0.224,0.101,0.15
+
+👇 Klik untuk download contoh CSV:
+""")
+
+# Buat contoh CSV
+contoh_csv = '''Sex,Length,Diameter,Height,Whole weight,Shucked weight,Viscera weight,Shell weight
+M,0.455,0.365,0.095,0.514,0.224,0.101,0.15
+F,0.35,0.265,0.09,0.225,0.1,0.0485,0.07
+I,0.53,0.42,0.13,0.677,0.2565,0.1415,0.21
+'''
+
+# Tombol download file
+st.download_button(
+    label="📥 Download Contoh CSV",
+    data=contoh_csv,
+    file_name="contoh_abalone.csv",
+    mime="text/csv"
+)
 
 # Fitur 2: Input dari CSV
 st.header("Upload File CSV")
